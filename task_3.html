@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Задача 3. Морський бій. Випадковим чином на двовимірному полі розміром 6*6 розташовується 5 кораблів. Користувач стріляє вказуючи координати. Гра продовжується поки не потоплено усі кораблі або у користувача не закінчаться снаряди.
+
+      function setBattleField(rows, columns) {
+        let battleField = [];
+        for (let i = 0; i < rows; i++) {
+          let row = new Array(columns).fill(0);
+          battleField.push(row);
+        }
+        return battleField;
+      }
+
+      let battlefield = setBattleField(6, 6);
+
+      function setShips(battleField, rows, columns, ships) {
+        for (let i = 0; i < ships; i++) {
+          let rowPosition, columnPosition;
+          do {
+            rowPosition = Math.floor(Math.random() * rows);
+            columnPosition = Math.floor(Math.random() * columns);
+          } while (battleField[rowPosition][columnPosition] === 1);
+          battleField[rowPosition][columnPosition] = 1;
+        }
+        return battleField;
+      }
+
+      let battleFieldSet = setShips(battlefield, 6, 6, 5);
+
+      function game(battleField, ships, shots) {
+        let rowAdressShot, columnAdressShot;
+        do {
+          rowAdressShot = parseInt(
+            prompt(`Your shot row (1-${battleField.length})`)
+          );
+          columnAdressShot = parseInt(
+            prompt(`Your shot column (1-${battleField[0].length})`)
+          );
+          if (battleField[rowAdressShot - 1][columnAdressShot - 1] === 1) {
+            shots--;
+            ships--;
+            alert(`Nice shot  ${shots}-shots left ${ships}- ships left`);
+          } else {
+            shots--;
+            alert(`You missed  ${shots}- shots left  ${ships}- ships left`);
+          }
+        } while (shots !== 0 && ships != 0);
+      }
+
+      game(battleFieldSet, 5, 10);
+
+      //console.log(battlefield);
+    </script>
+  </body>
+</html>

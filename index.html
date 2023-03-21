@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework 11</title>
+  </head>
+  <body>
+    <script>
+      //Задача 1.  Знайти суми елементів у вказаній області
+      //a) 2 чверть
+      const table = [
+        [1, 2, 3, 4, 5, 6],
+        [2, 3, 4, 5, 6, 7],
+        [3, 4, 5, 6, 7, 8],
+        [4, 5, 6, 7, 8, 9],
+      ];
+
+      let sumQuarter_2 = 0;
+      const halfOfRows = Math.floor(table.length / 2);
+
+      for (let i = 0; i < halfOfRows; i++) {
+        for (let j = 0; j < Math.floor(table[i].length / 2); j++) {
+          sumQuarter_2 += table[i][j];
+        }
+      }
+
+      document.write(`Sum 2nd part- ${sumQuarter_2}<br>`);
+
+      //b) 1 чверть
+
+      let sumQuarter_1 = 0;
+
+      for (let i = 0; i < halfOfRows; i++) {
+        for (
+          let j = Math.floor(table[i].length / 2);
+          j < table[i].length;
+          j++
+        ) {
+          sumQuarter_1 += table[i][j];
+        }
+      }
+      document.write(`Sum 1st part- ${sumQuarter_1}<br>`);
+
+      //c) 3 чверть
+
+      let sumQuarter_3 = 0;
+
+      for (let i = halfOfRows; i < table.length; i++) {
+        for (let j = 0; j < Math.floor(table[i].length / 2); j++) {
+          sumQuarter_3 += table[i][j];
+        }
+      }
+
+      document.write(`Sum 3rd part- ${sumQuarter_3}<br>`);
+
+      //d) 3 чверть
+
+      let sumQuarter_4 = 0;
+
+      for (let i = halfOfRows; i < table.length; i++) {
+        for (
+          let j = Math.floor(table[i].length / 2);
+          j < table[i].length;
+          j++
+        ) {
+          sumQuarter_4 += table[i][j];
+        }
+      }
+
+      document.write(`Sum 4th part- ${sumQuarter_4}<br>`);
+
+      //e)Суму парних рядків
+
+      let sumPairRows = 0;
+
+      for (let i = 1; i < table.length; i += 2) {
+        for (let j = 0; j < table[i].length; j++) {
+          sumPairRows += table[i][j];
+        }
+      }
+
+      document.write(`Sum of pair rows- ${sumPairRows}<br>`);
+
+      //f)6) Суму непарних стовпців
+
+      let sumUnPairRows = 0;
+
+      for (let i = 0; i < table.length; i += 2) {
+        for (let j = 0; j < table[i].length; j++) {
+          sumUnPairRows += table[i][j];
+        }
+      }
+
+      document.write(`Sum of pair rows- ${sumUnPairRows}<br>`);
+
+      //g)) У парних рядках – непарні стовпці, у непарних – парні.
+
+      let complexSum = 0;
+
+      for (let i = 0; i < table.length; i++) {
+        if (i % 2 == 0) {
+          for (let j = 1; j < table[i].length; j += 2) {
+            complexSum += table[i][j];
+          }
+        } else {
+          for (let y = 0; y < table[i].length; y += 2) {
+            complexSum += table[i][y];
+          }
+        }
+      }
+      document.write(`Sum with a lot of conditions- ${complexSum}<br>`);
+
+      //=======================================================================================
+      //Задача 2. Дано інформацію про прибуток К магазинів протягом тижня. Знайти :
+      const shopsRevenue = [
+        [1234, 4567, 4356, 2376, 7654, 4378, 5489],
+        [3678, 5865, 4367, 8765, 4367, 7654, 5278],
+        [6754, 5632, 4378, 4367, 8745, 4378, 6435],
+      ];
+      console.log(shopsRevenue);
+      // a) загальний прибуток кожного масиву за тиждень
+
+      const revenueShop_1 = shopsRevenue[0].reduce(
+        (value, daylyIncome) => (value += daylyIncome)
+      );
+      const revenueShop_2 = shopsRevenue[1].reduce(
+        (value, daylyIncome) => (value += daylyIncome)
+      );
+      const revenueShop_3 = shopsRevenue[2].reduce(
+        (value, daylyIncome) => (value += daylyIncome)
+      );
+
+      document.write(`Week revenue shop 1- ${revenueShop_1}<br>`);
+      document.write(`Week revenue shop 2- ${revenueShop_2}<br>`);
+      document.write(`Week revenue shop 3- ${revenueShop_3}<br>`);
+
+      //b)загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.);
+      function calcDayRevenueOfAllShops(shopsRevenue, day) {
+        const dayShopRevenue = shopsRevenue.reduce(
+          (prevValue, shop) => (prevValue += shop[day - 1]),
+          0
+        );
+        return dayShopRevenue;
+      }
+
+      let shopsRevenueByDay = calcDayRevenueOfAllShops(shopsRevenue, 1);
+      document.write(`Shops dayly revenue- ${shopsRevenueByDay}<br>`);
+
+      //b)загальний прибуток за робочі дні
+      let revenueSumOfWorkDays = 0;
+
+      for (let i = 0; i < shopsRevenue.length; i++) {
+        for (let j = 0; j < 5; j++) {
+          revenueSumOfWorkDays += shopsRevenue[i][j];
+        }
+      }
+      document.write(`Shops work days revenue- ${revenueSumOfWorkDays}<br>`);
+
+      //c)загальний прибуток за вихідні дні
+      let revenueSumOfDaysOff = 0;
+
+      for (let i = 0; i < shopsRevenue.length; i++) {
+        for (let j = 5; j <= 6; j++) {
+          revenueSumOfDaysOff += shopsRevenue[i][j];
+        }
+      }
+      document.write(`Shops days off revenue- ${revenueSumOfDaysOff}<br>`);
+
+      //d) максимальний прибуток за середу
+
+      const maxWednesdayRevenue = Math.max(
+        ...shopsRevenue.map((shop, index) => shop[2])
+      );
+
+      document.write(`Max revenue on wednesday- ${maxWednesdayRevenue}<br>`);
+
+      //e)сформувати загальний список (одновимірний масив) зі значенням, які що більші за 2000
+      // Трохи змінив умову
+
+      let revenueMoreThan_2000 = shopsRevenue
+        .map((shop) => shop.filter((day) => day > 2000))
+        .flat(Infinity);
+      console.log(revenueMoreThan_2000);
+      document.write(`Revenue more than 2000- ${revenueMoreThan_2000}<br>`);
+
+      //f)відсортувати кожен тиждень за зростанням
+
+      let shopsRevenueSortedIncrease = JSON.parse(JSON.stringify(shopsRevenue)); //Щоб не змінювати базовій массив
+
+      shopsRevenueSortedIncrease.forEach((shop) =>
+        shop.sort((day1, day2) => day1 - day2)
+      );
+
+      document.write(
+        `Shops revenue sorted up- ${shopsRevenueSortedIncrease}<br>`
+      );
+
+      //g)відсортувати тижні (рядки) за спаданням максимального елементи у цьому тижні (рядку), тобто при порівнянні рядків потрібно порівнювати максимальні елементи у кожному з цих рядків
+      // const shopsRevenueSortedByMaxIncome = Array.from(shopsRevenue);
+
+      let shopsRevenueSortedByMaxIncome = JSON.parse(
+        JSON.stringify(shopsRevenue)
+      );
+
+      shopsRevenueSortedByMaxIncome.sort(
+        (shop1, shop2) => Math.max(...shop2) - Math.max(...shop1)
+      );
+      //console.log(shopsRevenueSortedByMaxIncome);
+      document.write(
+        `Shops revenue sorted by max income per day- ${shopsRevenueSortedByMaxIncome}<br>`
+      );
+
+      //h) упорядкувати тижні (рядки) за спаданням суми елементів у рядку (тобто при порівнянні двох рядків треба знайти суму кожного з рядків і порівнювати ці суми, на основі цих сум буде зрозуміло, який з елементів повинен іти раніше).
+      let shopsRevenueSortedByTotalIncome = JSON.parse(
+        JSON.stringify(shopsRevenue)
+      );
+      shopsRevenueSortedByTotalIncome.sort(
+        (shop1, shop2) =>
+          shop2.reduce((sum, day) => (sum += day)) -
+          shop1.reduce((sum, day) => (sum += day))
+      );
+
+      document.write(
+        `Shops revenue sorted by total income per week- ${shopsRevenueSortedByTotalIncome}<br>`
+      );
+    </script>
+    <a href="task_3.html"><h1>Warship Battle</h1></a>
+  </body>
+</html>
